@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:ambpt/UserSelect.dart';
+import 'package:ambpt/register.dart';
+import 'globals.dart' as globals;
 
-void main() => runApp(new MyApp());
+void main() => runApp(new Login());
+
+class Login extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(home: new MyApp());
+  }
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -14,42 +25,45 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: new Scaffold(
-        backgroundColor: Color.fromRGBO(35, 35, 35, 1),
-        appBar: AppBar(
-          title: Text('Login Page'),
+    return Scaffold(
+      backgroundColor: Color.fromRGBO(35, 35, 35, 1),
+      appBar: AppBar(
+        title: Text(
+          'Login Page',
+          style: GoogleFonts.roboto(fontStyle: FontStyle.normal),
         ),
-        body: new SingleChildScrollView(
-          child: Column(children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 60.0),
-              child: Center(
-                child: Container(
-                    width: 200,
-                    height: 150,
-                    /*decoration: BoxDecoration(
+      ),
+      body: SingleChildScrollView(
+        child: Column(children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(top: 60.0),
+            child: Center(
+              child: Container(
+                  width: 200,
+                  height: 150,
+                  /*decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(50.0)),*/
-                    child: Image.asset('asset/images/flutter-logo.png')),
-              ),
+                  child: Image.asset('asset/images/flutter-logo.png')),
             ),
-            new Container(
-              margin: new EdgeInsets.all(15.0),
-              child: new Form(
-                key: _key,
-                autovalidate: _validate,
-                child: FormUI(),
-              ),
+          ),
+          Container(
+            margin: EdgeInsets.all(15.0),
+            child: Form(
+              key: _key,
+              autovalidate: _validate,
+              child: FormUI(),
             ),
-            FlatButton(
-                onPressed: () {
-                  //TODO FORGOT Register SCREEN GOES HERE
-                },
-                child: Text('New User? Create Account',
-                    style: TextStyle(color: Colors.white)))
-          ]),
-        ),
+          ),
+          FlatButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => register()));
+              },
+              child: Text('New User? Create Account',
+                  style: GoogleFonts.roboto(
+                      textStyle: TextStyle(color: Colors.white))))
+        ]),
       ),
     );
   }
@@ -58,7 +72,7 @@ class _MyAppState extends State<MyApp> {
     return new Column(
       children: <Widget>[
         new Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: new TextFormField(
               decoration: new InputDecoration(
                 hintText: 'Email Address',
@@ -66,6 +80,7 @@ class _MyAppState extends State<MyApp> {
                 filled: true,
                 fillColor: Colors.white,
               ),
+              style: GoogleFonts.roboto(fontStyle: FontStyle.normal),
               keyboardType: TextInputType.emailAddress,
               validator: validateEmail,
               onSaved: (String val) {
@@ -73,8 +88,9 @@ class _MyAppState extends State<MyApp> {
               }),
         ),
         new Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
           child: new TextFormField(
+            obscureText: true,
             decoration: new InputDecoration(
               hintText: 'Password',
               border: OutlineInputBorder(),
@@ -82,12 +98,12 @@ class _MyAppState extends State<MyApp> {
               fillColor: Colors.white,
             ),
             validator: validateName,
+            style: GoogleFonts.roboto(fontStyle: FontStyle.normal),
             onSaved: (String val) {
               name = val;
             },
           ),
         ),
-        
         new SizedBox(height: 15.0),
         new FlatButton(
           onPressed: () {
@@ -95,7 +111,8 @@ class _MyAppState extends State<MyApp> {
           },
           child: Text(
             'Forgot Password',
-            style: TextStyle(color: Colors.blue, fontSize: 15),
+            style: GoogleFonts.roboto(
+                textStyle: TextStyle(color: Colors.blue, fontSize: 15)),
           ),
         ),
         Container(
@@ -105,6 +122,7 @@ class _MyAppState extends State<MyApp> {
               color: Colors.blue, borderRadius: BorderRadius.circular(20)),
           child: FlatButton(
             onPressed: _sendToServer,
+
             /*() {
               _sendToServer
               //Navigator.push(
@@ -112,7 +130,8 @@ class _MyAppState extends State<MyApp> {
             },*/
             child: Text(
               'Login',
-              style: TextStyle(color: Colors.white, fontSize: 25),
+              style: GoogleFonts.roboto(
+                  textStyle: TextStyle(color: Colors.white, fontSize: 25)),
             ),
           ),
         ),
@@ -121,14 +140,18 @@ class _MyAppState extends State<MyApp> {
   }
 
   String validateName(String value) {
-    String patttern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regExp = new RegExp(patttern);
+    print(globals.Pass);
+    print(value);
+    String pattern =
+        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+    RegExp regExp = new RegExp(pattern);
     if (value.length == 0) {
       return "Password is Required";
-    } else if (!regExp.hasMatch(value)) {
-      return "Invalid Email";
+    } else if (value != globals.Pass) {
+      return "Invalid Password";
+    } else {
+      return null;
     }
-    return null;
   }
 
   String validateEmail(String value) {
@@ -137,7 +160,7 @@ class _MyAppState extends State<MyApp> {
     RegExp regExp = new RegExp(pattern);
     if (value.length == 0) {
       return "Email is Required";
-    } else if (!regExp.hasMatch(value)) {
+    } else if ((!regExp.hasMatch(value)) | (value != globals.Email)) {
       return "Invalid Email";
     } else {
       return null;
@@ -148,8 +171,8 @@ class _MyAppState extends State<MyApp> {
     if (_key.currentState.validate()) {
       // No any error in validation
       _key.currentState.save();
-      print("Name $name");
-      print("Email $email");
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => SecondScreen()));
     } else {
       // validation error
       setState(() {
