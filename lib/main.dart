@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ambpt/UserSelect.dart';
 import 'package:ambpt/register.dart';
+import 'forgotpass.dart';
 import 'globals.dart' as globals;
 
 void main() => runApp(new Login());
@@ -105,8 +106,14 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         new SizedBox(height: 15.0),
+        new Padding(
+        padding: EdgeInsets.symmetric( vertical: 7.5),
+        child:
         new FlatButton(
           onPressed: () {
+            //ForgotPass
+            Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ForgotPass()));
             //TODO FORGOT PASSWORD SCREEN GOES HERE
           },
           child: Text(
@@ -114,7 +121,7 @@ class _MyAppState extends State<MyApp> {
             style: GoogleFonts.roboto(
                 textStyle: TextStyle(color: Colors.blue, fontSize: 15)),
           ),
-        ),
+        ),),
         Container(
           height: 50,
           width: 250,
