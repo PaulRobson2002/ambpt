@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ambpt/UserSelect.dart';
+import 'package:ambpt/uselect.dart';
 import 'package:ambpt/register.dart';
 import 'forgotpass.dart';
 import 'globals.dart' as globals;
@@ -107,26 +107,28 @@ class _MyAppState extends State<MyApp> {
         ),
         new SizedBox(height: 15.0),
         new Padding(
-        padding: EdgeInsets.symmetric( vertical: 7.5),
-        child:
-        new FlatButton(
-          onPressed: () {
-            //ForgotPass
-            Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ForgotPass()));
-            //TODO FORGOT PASSWORD SCREEN GOES HERE
-          },
-          child: Text(
-            'Forgot Password',
-            style: GoogleFonts.roboto(
-                textStyle: TextStyle(color: Colors.blue, fontSize: 15)),
+          padding: EdgeInsets.symmetric(vertical: 7.5),
+          child: new FlatButton(
+            onPressed: () {
+              //ForgotPass
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ForgotPass()));
+              //TODO FORGOT PASSWORD SCREEN GOES HERE
+            },
+            child: Text(
+              'Forgot Password',
+              style: GoogleFonts.roboto(
+                  textStyle: TextStyle(color: Colors.blue, fontSize: 15)),
+            ),
           ),
-        ),),
+        ),
         Container(
           height: 50,
           width: 250,
           decoration: BoxDecoration(
-              color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+            color: Colors.blue,
+            borderRadius: BorderRadius.circular(20),
+          ),
           child: FlatButton(
             onPressed: _sendToServer,
 
@@ -138,10 +140,26 @@ class _MyAppState extends State<MyApp> {
             child: Text(
               'Login',
               style: GoogleFonts.roboto(
-                  textStyle: TextStyle(color: Colors.white, fontSize: 25)),
+                textStyle: TextStyle(color: Colors.white, fontSize: 25),
+              ),
             ),
           ),
         ),
+        FlatButton(
+          onPressed: toSelect,
+
+          /*() {
+              _sendToServer
+              //Navigator.push(
+              //context, MaterialPageRoute(builder: (_) => HomePage()));
+            },*/
+          child: Text(
+            'Login',
+            style: GoogleFonts.roboto(
+              textStyle: TextStyle(color: Colors.white, fontSize: 25),
+            ),
+          ),
+        )
       ],
     );
   }
@@ -179,12 +197,25 @@ class _MyAppState extends State<MyApp> {
       // No any error in validation
       _key.currentState.save();
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => SecondScreen()));
+        context,
+        MaterialPageRoute(
+          builder: (context) => SecondScreen(),
+        ),
+      );
     } else {
       // validation error
       setState(() {
         _validate = true;
       });
     }
+  }
+
+  toSelect() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SecondScreen(),
+      ),
+    );
   }
 }

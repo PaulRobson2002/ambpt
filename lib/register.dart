@@ -16,34 +16,42 @@ class _registerState extends State<register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromRGBO(35, 35, 35, 1),
-        appBar: AppBar(
-          title: Text(
-            'Register Page',
-            style: GoogleFonts.roboto(fontStyle: FontStyle.normal),
-          ),
+      backgroundColor: Color.fromRGBO(35, 35, 35, 1),
+      appBar: AppBar(
+        title: Text(
+          'Register Page',
+          style: GoogleFonts.roboto(fontStyle: FontStyle.normal),
         ),
-        body: SingleChildScrollView(
-            child: Column(children: <Widget>[
-          Padding(
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Padding(
               padding: const EdgeInsets.only(top: 15),
               child: Center(
-                child: Text('Create Account',
-                    style: GoogleFonts.roboto(
-                        textStyle: TextStyle(
+                child: Text(
+                  'Create Account',
+                  style: GoogleFonts.roboto(
+                    textStyle: TextStyle(
                       color: Colors.white,
                       fontSize: 48,
-                    ))),
-              )),
-          Container(
-            margin: EdgeInsets.all(15.0),
-            child: Form(
-              key: _key,
-              autovalidate: _validate,
-              child: FormUI(),
+                    ),
+                  ),
+                ),
+              ),
             ),
-          ),
-        ])));
+            Container(
+              margin: EdgeInsets.all(15.0),
+              child: Form(
+                key: _key,
+                autovalidate: _validate,
+                child: FormUI(),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget FormUI() {
@@ -147,7 +155,7 @@ class _registerState extends State<register> {
               //context, MaterialPageRoute(builder: (_) => HomePage()));
             },*/
             child: Text(
-              'Login',
+              'Register',
               style: GoogleFonts.roboto(
                   textStyle: TextStyle(color: Colors.white, fontSize: 25)),
             ),
