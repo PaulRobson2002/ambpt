@@ -63,7 +63,10 @@ class _MyAppState extends State<MyApp> {
               },
               child: Text('New User? Create Account',
                   style: GoogleFonts.roboto(
-                      textStyle: TextStyle(color: Colors.white))))
+                      textStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                  ))))
         ]),
       ),
     );
@@ -118,13 +121,16 @@ class _MyAppState extends State<MyApp> {
             child: Text(
               'Forgot Password',
               style: GoogleFonts.roboto(
-                  textStyle: TextStyle(color: Colors.blue, fontSize: 15)),
+                  textStyle: TextStyle(
+                color: Colors.blue,
+                fontSize: MediaQuery.of(context).size.width * 0.03,
+              )),
             ),
           ),
         ),
         Container(
-          height: 50,
-          width: 250,
+          height: MediaQuery.of(context).size.height * 0.05,
+          width: MediaQuery.of(context).size.width * 0.75,
           decoration: BoxDecoration(
             color: Colors.blue,
             borderRadius: BorderRadius.circular(20),
@@ -140,7 +146,10 @@ class _MyAppState extends State<MyApp> {
             child: Text(
               'Login',
               style: GoogleFonts.roboto(
-                textStyle: TextStyle(color: Colors.white, fontSize: 25),
+                textStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: MediaQuery.of(context).size.height * 0.04,
+                ),
               ),
             ),
           ),

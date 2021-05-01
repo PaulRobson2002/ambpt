@@ -15,20 +15,29 @@ class _SecondScreenState extends State<SecondScreen> {
       appBar: AppBar(
         title: Text(
           ("User Select"),
-          style: GoogleFonts.roboto(fontStyle: FontStyle.normal),
+          style: GoogleFonts.roboto(
+            fontStyle: FontStyle.normal,
+            fontSize: MediaQuery.of(context).size.width * 0.04,
+          ),
         ),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[CardWidget(), CardWidget(), CardWidget()],
+          children: <Widget>[
+            CardWidget(Age: 18, Name: "Paul", current: 118.5, goal: 100.0),
+          ],
         ),
       ),
     );
   }
 
-  Widget CardWidget() {
+  Widget CardWidget(
+      {@required String Name,
+      @required int Age,
+      @required double goal,
+      @required double current}) {
     return new Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.1,
@@ -51,26 +60,76 @@ class _SecondScreenState extends State<SecondScreen> {
                   child: Container(
                     child: Align(
                       alignment: Alignment.topRight,
-                      child: Column(
+                      child: Row(
                         children: [
-                          Text(
-                            "Name",
-                            textAlign: TextAlign.left,
-                            style: GoogleFonts.roboto(
-                              textStyle: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
+                          Padding(
+                            padding: EdgeInsets.only(right: 40.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  Name,
+                                  textAlign: TextAlign.left,
+                                  style: GoogleFonts.roboto(
+                                    textStyle: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.04,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(top: 5),
+                                  child: Text(
+                                    Age.toString(),
+                                    textAlign: TextAlign.left,
+                                    style: GoogleFonts.roboto(
+                                      textStyle: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                0.04,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          Text(
-                            "Age",
-                            textAlign: TextAlign.left,
-                            style: GoogleFonts.roboto(
-                              textStyle: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
+                          Padding(
+                            padding: EdgeInsets.only(right: 20.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  current.toString() + "KG",
+                                  textAlign: TextAlign.left,
+                                  style: GoogleFonts.roboto(
+                                    textStyle: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.04,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(top: 5),
+                                  child: Text(
+                                    goal.toString() + "KG",
+                                    textAlign: TextAlign.left,
+                                    style: GoogleFonts.roboto(
+                                      textStyle: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                0.04,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
