@@ -13,6 +13,16 @@ class _SecondScreenState extends State<SecondScreen> {
     return Scaffold(
       backgroundColor: Color.fromRGBO(35, 35, 35, 1),
       appBar: AppBar(
+        actions: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: IconButton(
+              icon: const Icon(Icons.person_add),
+              tooltip: 'Show Snackbar',
+              onPressed: _showDialog,
+            ),
+          ),
+        ],
         title: Text(
           ("User Select"),
           style: GoogleFonts.roboto(
@@ -26,7 +36,16 @@ class _SecondScreenState extends State<SecondScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            CardWidget(Age: 18, Name: "Paul", current: 118.5, goal: 100.0),
+            Flexible(
+              child: new ListView.builder(
+                //itemCount: globals.Users.length,
+                itemCount: 1,
+                itemBuilder: (BuildContext ctxt, int _index) {
+                  return CardWidget(
+                      Age: 19, Name: "Test", current: 198.0, goal: 100.0);
+                },
+              ),
+            )
           ],
         ),
       ),
@@ -140,6 +159,53 @@ class _SecondScreenState extends State<SecondScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  _showDialog() async {
+    await showDialog<String>(
+      builder: (context) => new AlertDialog(
+        content: Form(
+          child: FormUI(),
+        ),
+        actions: <Widget>[
+          new FlatButton(
+              child: const Text('CANCEL'),
+              onPressed: () {
+                Navigator.pop(context);
+              }),
+          new FlatButton(
+              child: const Text('Submit'),
+              onPressed: () {
+                Navigator.pop(context);
+              })
+        ],
+      ),
+      context: context,
+    );
+  }
+
+  Widget FormUI() {
+    return new Column(
+      children: <Widget>[
+        new Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+          child: new TextFormField(
+            decoration: new InputDecoration(
+              hintText: 'Email Address',
+              border: OutlineInputBorder(),
+              filled: true,
+              fillColor: Colors.white,
+            ),
+            style: GoogleFonts.roboto(fontStyle: FontStyle.normal),
+            keyboardType: TextInputType.emailAddress,
+            //validator: validateEmail,
+            onSaved: (String val) {
+              //email = val;
+            },
+          ),
+        ),
+      ],
     );
   }
 }

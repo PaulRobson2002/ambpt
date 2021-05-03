@@ -1,20 +1,19 @@
 library ambpt.globals;
 
-
 import 'package:ambpt/main.dart';
 import 'package:flutter/cupertino.dart';
 
 bool isLoggedIn = false;
 String FName, SName, Pass, Email, Uname;
+List Users;
 
 class account {
-  String name, Login;
+  String name;
   double Age, TargetWeight, CurrWeight, Progress;
   List Challenges;
   
-  getLogin() {
-    this.Login = Uname;
-  }
+}
 
-
+class challenge{
+  
 }

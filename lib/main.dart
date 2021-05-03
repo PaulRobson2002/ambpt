@@ -10,7 +10,10 @@ void main() => runApp(new Login());
 class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(home: new MyApp());
+    return new MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: new MyApp(),
+    );
   }
 }
 
@@ -92,7 +95,7 @@ class _MyAppState extends State<MyApp> {
               }),
         ),
         new Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
           child: new TextFormField(
             obscureText: true,
             decoration: new InputDecoration(
@@ -110,26 +113,30 @@ class _MyAppState extends State<MyApp> {
         ),
         new SizedBox(height: 15.0),
         new Padding(
-          padding: EdgeInsets.symmetric(vertical: 7.5),
+          padding: EdgeInsets.symmetric(vertical: 6),
           child: new FlatButton(
             onPressed: () {
               //ForgotPass
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ForgotPass()));
-              //TODO FORGOT PASSWORD SCREEN GOES HERE
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ForgotPass(),
+                ),
+              );
             },
             child: Text(
               'Forgot Password',
               style: GoogleFonts.roboto(
-                  textStyle: TextStyle(
-                color: Colors.blue,
-                fontSize: MediaQuery.of(context).size.width * 0.03,
-              )),
+                textStyle: TextStyle(
+                  color: Colors.blue,
+                  fontSize: MediaQuery.of(context).size.width * 0.04,
+                ),
+              ),
             ),
           ),
         ),
         Container(
-          height: MediaQuery.of(context).size.height * 0.05,
+          height: MediaQuery.of(context).size.height * 0.06,
           width: MediaQuery.of(context).size.width * 0.75,
           decoration: BoxDecoration(
             color: Colors.blue,
@@ -159,7 +166,7 @@ class _MyAppState extends State<MyApp> {
 
           /*() {
               _sendToServer
-              //Navigator.push(
+              //Navigator.push(S
               //context, MaterialPageRoute(builder: (_) => HomePage()));
             },*/
           child: Text(
