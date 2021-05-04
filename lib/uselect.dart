@@ -44,10 +44,15 @@ class _SecondScreenState extends State<SecondScreen> {
           children: <Widget>[
             Flexible(
               child: new ListView.builder(
-                itemCount: 1,
+                itemCount: globals.Users.length,
                 itemBuilder: (BuildContext ctxt, int _index) {
+                  print(globals.Users[_index]);
                   return CardWidget(
-                      Age: 19, Name: "Test", current: 198.0, goal: 100.0);
+                    Age: globals.Users[_index].Age,
+                    Name: globals.Users[_index].name,
+                    current: globals.Users[_index].CurrWeight,
+                    goal: globals.Users[_index].TargetWeight,
+                  );
                 },
               ),
             )
@@ -59,7 +64,7 @@ class _SecondScreenState extends State<SecondScreen> {
 
   Widget CardWidget(
       {@required String Name,
-      @required int Age,
+      @required double Age,
       @required double goal,
       @required double current}) {
     return new Container(
@@ -92,7 +97,7 @@ class _SecondScreenState extends State<SecondScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  Name,
+                                  Name.toString(),
                                   textAlign: TextAlign.left,
                                   style: GoogleFonts.roboto(
                                     textStyle: TextStyle(
@@ -236,19 +241,21 @@ class _SecondScreenState extends State<SecondScreen> {
                   onTap: () {
                     if (_formKey.currentState.validate()) {
                       //print(globals.Users);//Debug
-                      
 
-                      globals.Users.add( //adds instance of an account to users list
-                        new globals.account( // passes in values and makes class
+                      globals.Users.add(
+                        //adds instance of an account to users list
+                        new globals.account(
+                          // passes in values and makes class
                           PAge: Age,
                           PName: Name,
                           PCurrweight: CurrWeight,
                           PTargetWeight: TargetWeight,
                         ),
-                        
                       );
                       //print(globals.Users);//Debug
+                      setState(() {}); // refresh Pages
                       Navigator.of(context).pop(); // Close the dialog box
+                      
                     }
                   },
                 ),

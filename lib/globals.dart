@@ -18,6 +18,9 @@ class account {
     this.CurrWeight = PCurrweight;
     this.TargetWeight = PTargetWeight;
   }
+
+
+
 }
 
 class challenge {}
