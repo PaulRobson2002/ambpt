@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:convert';
+import 'dart:core';
 import 'globals.dart' as globals;
 
 class SecondScreen extends StatefulWidget {
@@ -42,7 +44,6 @@ class _SecondScreenState extends State<SecondScreen> {
           children: <Widget>[
             Flexible(
               child: new ListView.builder(
-                //itemCount: globals.Users.length,
                 itemCount: 1,
                 itemBuilder: (BuildContext ctxt, int _index) {
                   return CardWidget(
@@ -167,11 +168,14 @@ class _SecondScreenState extends State<SecondScreen> {
   }
 
   _GetName() async {
+    String Name;
+    double Age, CurrWeight, TargetWeight;
     return await showDialog(
-        context: context,
-        builder: (context) {
-          bool isChecked = false;
-          return StatefulBuilder(builder: (context, setState) {
+      context: context,
+      builder: (context) {
+        bool isChecked = false;
+        return StatefulBuilder(
+          builder: (context, setState) {
             return AlertDialog(
               content: Form(
                   key: _formKey,
@@ -179,7 +183,9 @@ class _SecondScreenState extends State<SecondScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       TextFormField(
-                        controller: _textEditingController,
+                        onSaved: (var val) {
+                          Name = val;
+                        },
                         validator: (value) {
                           return value.isNotEmpty ? null : "Enter Name";
                         },
@@ -187,16 +193,21 @@ class _SecondScreenState extends State<SecondScreen> {
                             InputDecoration(hintText: "Please Enter Your Name"),
                       ),
                       TextFormField(
-                        controller: _textEditingController,
+                        keyboardType: TextInputType.number,
+                        onSaved: (var val) {
+                          Age = double.parse(val);
+                        },
                         validator: (value) {
                           return value.isNotEmpty ? null : "Enter Your age";
-                          
                         },
                         decoration:
                             InputDecoration(hintText: "Please Enter Your Age"),
                       ),
                       TextFormField(
-                        controller: _textEditingController,
+                        keyboardType: TextInputType.number,
+                        onSaved: (var val) {
+                          CurrWeight = double.parse(val);
+                        },
                         validator: (value) {
                           return value.isNotEmpty ? null : "Enter Your weight";
                         },
@@ -204,7 +215,10 @@ class _SecondScreenState extends State<SecondScreen> {
                             hintText: "Please Enter Your weight"),
                       ),
                       TextFormField(
-                        controller: _textEditingController,
+                        keyboardType: TextInputType.number,
+                        onSaved: (var val) {
+                          TargetWeight = double.parse(val);
+                        },
                         validator: (value) {
                           return value.isNotEmpty
                               ? null
@@ -221,28 +235,28 @@ class _SecondScreenState extends State<SecondScreen> {
                   child: Text('Submit   '),
                   onTap: () {
                     if (_formKey.currentState.validate()) {
-                      // Do something like updating SharedPreferences or User Settings etc.
-                      Navigator.of(context).pop();
+                      //print(globals.Users);//Debug
+                      
+
+                      globals.Users.add( //adds instance of an account to users list
+                        new globals.account( // passes in values and makes class
+                          PAge: Age,
+                          PName: Name,
+                          PCurrweight: CurrWeight,
+                          PTargetWeight: TargetWeight,
+                        ),
+                        
+                      );
+                      //print(globals.Users);//Debug
+                      Navigator.of(context).pop(); // Close the dialog box
                     }
                   },
                 ),
               ],
             );
-          });
-        });
-  }
-
-  String validateEmail(String value) {
-    print(value);
-    String pattern =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regExp = new RegExp(pattern);
-    if (value.length == 0) {
-      return "Email is Required";
-    } else if ((!regExp.hasMatch(value)) | (value != globals.Email)) {
-      return "Invalid Email";
-    } else {
-      return null;
-    }
+          },
+        );
+      },
+    );
   }
 }
