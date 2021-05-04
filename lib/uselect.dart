@@ -8,6 +8,10 @@ class SecondScreen extends StatefulWidget {
 }
 
 class _SecondScreenState extends State<SecondScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  final TextEditingController _textEditingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +23,7 @@ class _SecondScreenState extends State<SecondScreen> {
             child: IconButton(
               icon: const Icon(Icons.person_add),
               tooltip: 'Show Snackbar',
-              onPressed: _showDialog,
+              onPressed: _GetName,
             ),
           ),
         ],
@@ -162,50 +166,83 @@ class _SecondScreenState extends State<SecondScreen> {
     );
   }
 
-  _showDialog() async {
-    await showDialog<String>(
-      builder: (context) => new AlertDialog(
-        content: Form(
-          child: FormUI(),
-        ),
-        actions: <Widget>[
-          new FlatButton(
-              child: const Text('CANCEL'),
-              onPressed: () {
-                Navigator.pop(context);
-              }),
-          new FlatButton(
-              child: const Text('Submit'),
-              onPressed: () {
-                Navigator.pop(context);
-              })
-        ],
-      ),
-      context: context,
-    );
+  _GetName() async {
+    return await showDialog(
+        context: context,
+        builder: (context) {
+          bool isChecked = false;
+          return StatefulBuilder(builder: (context, setState) {
+            return AlertDialog(
+              content: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TextFormField(
+                        controller: _textEditingController,
+                        validator: (value) {
+                          return value.isNotEmpty ? null : "Enter Name";
+                        },
+                        decoration:
+                            InputDecoration(hintText: "Please Enter Your Name"),
+                      ),
+                      TextFormField(
+                        controller: _textEditingController,
+                        validator: (value) {
+                          return value.isNotEmpty ? null : "Enter Your age";
+                          
+                        },
+                        decoration:
+                            InputDecoration(hintText: "Please Enter Your Age"),
+                      ),
+                      TextFormField(
+                        controller: _textEditingController,
+                        validator: (value) {
+                          return value.isNotEmpty ? null : "Enter Your weight";
+                        },
+                        decoration: InputDecoration(
+                            hintText: "Please Enter Your weight"),
+                      ),
+                      TextFormField(
+                        controller: _textEditingController,
+                        validator: (value) {
+                          return value.isNotEmpty
+                              ? null
+                              : "Enter Target weight";
+                        },
+                        decoration: InputDecoration(
+                            hintText: "Please Enter Your Target weight"),
+                      ),
+                    ],
+                  )),
+              title: Text('User Creation'),
+              actions: <Widget>[
+                InkWell(
+                  child: Text('Submit   '),
+                  onTap: () {
+                    if (_formKey.currentState.validate()) {
+                      // Do something like updating SharedPreferences or User Settings etc.
+                      Navigator.of(context).pop();
+                    }
+                  },
+                ),
+              ],
+            );
+          });
+        });
   }
 
-  Widget FormUI() {
-    return new Column(
-      children: <Widget>[
-        new Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-          child: new TextFormField(
-            decoration: new InputDecoration(
-              hintText: 'Email Address',
-              border: OutlineInputBorder(),
-              filled: true,
-              fillColor: Colors.white,
-            ),
-            style: GoogleFonts.roboto(fontStyle: FontStyle.normal),
-            keyboardType: TextInputType.emailAddress,
-            //validator: validateEmail,
-            onSaved: (String val) {
-              //email = val;
-            },
-          ),
-        ),
-      ],
-    );
+  String validateEmail(String value) {
+    print(value);
+    String pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regExp = new RegExp(pattern);
+    if (value.length == 0) {
+      return "Email is Required";
+    } else if ((!regExp.hasMatch(value)) | (value != globals.Email)) {
+      return "Invalid Email";
+    } else {
+      return null;
+    }
   }
 }
