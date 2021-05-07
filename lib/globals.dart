@@ -3,14 +3,17 @@ library ambpt.globals;
 import 'package:ambpt/main.dart';
 import 'package:flutter/cupertino.dart';
 
-bool isLoggedIn = false;
-String FName, SName, Pass, Email, Uname;
-List<account> Users = [];
+
 
 class account {
   String name;
   double Age, TargetWeight, CurrWeight;
   List Challenges;
+
+  static bool isLoggedIn = false;
+  static String FName, SName, Pass, Email, Uname;
+  static List<account> Users = [];
+
   account(
       {String PName, double PAge, double PTargetWeight, double PCurrweight}) {
     this.name = PName;

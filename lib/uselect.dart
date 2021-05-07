@@ -44,14 +44,14 @@ class _SecondScreenState extends State<SecondScreen> {
           children: <Widget>[
             Flexible(
               child: new ListView.builder(
-                itemCount: globals.Users.length,
+                itemCount: globals.account.Users.length,
                 itemBuilder: (BuildContext ctxt, int _index) {
-                  print(globals.Users[_index]);
+                  print(globals.account.Users[_index]);
                   return CardWidget(
-                    Age: globals.Users[_index].Age,
-                    Name: globals.Users[_index].name,
-                    current: globals.Users[_index].CurrWeight,
-                    goal: globals.Users[_index].TargetWeight,
+                    Age: globals.account.Users[_index].Age,
+                    Name: globals.account.Users[_index].name,
+                    current: globals.account.Users[_index].CurrWeight,
+                    goal: globals.account.Users[_index].TargetWeight,
                   );
                 },
               ),
@@ -242,7 +242,7 @@ class _SecondScreenState extends State<SecondScreen> {
                     if (_formKey.currentState.validate()) {
                       //print(globals.Users);//Debug
 
-                      globals.Users.add(
+                      globals.account.Users.add(
                         //adds instance of an account to users list
                         new globals.account(
                           // passes in values and makes class

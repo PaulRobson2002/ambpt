@@ -125,14 +125,14 @@ class _ForgotPassState extends State<ForgotPass> {
 
   String validateName(String value) {
     print(value);
-    print(globals.Pass);
+    print(globals.account.Pass);
     print(value);
     String pattern =
         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
     RegExp regExp = new RegExp(pattern);
     if (value.length == 0) {
       return "Password is Required";
-    } else if (value != globals.Pass) {
+    } else if (value != globals.account.Pass) {
       return "Invalid Password";
     } else {
       return null;
@@ -145,7 +145,7 @@ class _ForgotPassState extends State<ForgotPass> {
     RegExp regExp = new RegExp(pattern);
     if (value.length == 0) {
       return "Email is Required";
-    } else if ((!regExp.hasMatch(value)) | (value != globals.Email)) {
+    } else if ((!regExp.hasMatch(value)) | (value != globals.account.Email)) {
       return "Invalid Email";
     } else {
       return null;
@@ -158,7 +158,7 @@ class _ForgotPassState extends State<ForgotPass> {
       _key.currentState.save();
       if (Password == ConfirmPass) {
         valid = true;
-        globals.Pass == Password;
+        globals.account.Pass == Password;
         Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
       }
     } else {

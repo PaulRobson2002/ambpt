@@ -213,11 +213,11 @@ class _registerState extends State<register> {
       print(
           fname + " " + email + " " + username + " " + password + " " + sname);
 
-      globals.Email = email;
-      globals.Uname = username;
-      globals.FName = fname;
-      globals.SName = sname;
-      globals.Pass = password;
+      globals.account.Email = email;
+      globals.account.Uname = username;
+      globals.account.FName = fname;
+      globals.account.SName = sname;
+      globals.account.Pass = password;
       //paulflutter.ezyro.com/register.php
       Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
     } else {
