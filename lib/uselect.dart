@@ -46,7 +46,8 @@ class _SecondScreenState extends State<SecondScreen> {
               child: new ListView.builder(
                 itemCount: globals.account.Users.length,
                 itemBuilder: (BuildContext ctxt, int _index) {
-                  print(globals.account.Users[_index]);
+                  //print(_index);
+                  //print(globals.account.Users[_index].name);
                   return CardWidget(
                     Age: globals.account.Users[_index].Age,
                     Name: globals.account.Users[_index].name,
@@ -190,9 +191,14 @@ class _SecondScreenState extends State<SecondScreen> {
                       TextFormField(
                         onSaved: (var val) {
                           Name = val;
+                          //print(Name);
                         },
                         validator: (value) {
                           return value.isNotEmpty ? null : "Enter Name";
+                        },
+                        onChanged: (value) {
+                          Name = value;
+                          //print(Name);
                         },
                         decoration:
                             InputDecoration(hintText: "Please Enter Your Name"),
@@ -201,6 +207,9 @@ class _SecondScreenState extends State<SecondScreen> {
                         keyboardType: TextInputType.number,
                         onSaved: (var val) {
                           Age = double.parse(val);
+                        },
+                        onChanged: (value) {
+                          Age = double.parse(value);
                         },
                         validator: (value) {
                           return value.isNotEmpty ? null : "Enter Your age";
@@ -213,6 +222,9 @@ class _SecondScreenState extends State<SecondScreen> {
                         onSaved: (var val) {
                           CurrWeight = double.parse(val);
                         },
+                        onChanged: (value) {
+                          CurrWeight = double.parse(value);
+                        },
                         validator: (value) {
                           return value.isNotEmpty ? null : "Enter Your weight";
                         },
@@ -223,6 +235,9 @@ class _SecondScreenState extends State<SecondScreen> {
                         keyboardType: TextInputType.number,
                         onSaved: (var val) {
                           TargetWeight = double.parse(val);
+                        },
+                        onChanged: (value) {
+                          TargetWeight = double.parse(value);
                         },
                         validator: (value) {
                           return value.isNotEmpty
@@ -240,10 +255,11 @@ class _SecondScreenState extends State<SecondScreen> {
                   child: Text('Submit   '),
                   onTap: () {
                     if (_formKey.currentState.validate()) {
-                      //print(globals.Users);//Debug
-
+                      ////print(globals.Users);//Debug
+                      ////print(Name);
                       globals.account.Users.add(
                         //adds instance of an account to users list
+
                         new globals.account(
                           // passes in values and makes class
                           PAge: Age,
@@ -252,10 +268,11 @@ class _SecondScreenState extends State<SecondScreen> {
                           PTargetWeight: TargetWeight,
                         ),
                       );
-                      //print(globals.Users);//Debug
+                      //print(globals.account.Users[0].name);
+                      ////print(globals.Users);//Debug
                       setState(() {}); // refresh Pages
                       Navigator.of(context).pop(); // Close the dialog box
-                      
+
                     }
                   },
                 ),
