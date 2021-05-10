@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:convert';
 import 'dart:core';
+import 'userPage.dart';
+import 'main.dart';
 import 'globals.dart' as globals;
 
 class SecondScreen extends StatefulWidget {
@@ -21,11 +23,31 @@ class _SecondScreenState extends State<SecondScreen> {
       appBar: AppBar(
         actions: <Widget>[
           Padding(
-            padding: EdgeInsets.only(right: 20.0),
+            padding: EdgeInsets.only(right: 10.0),
             child: IconButton(
               icon: const Icon(Icons.person_add),
-              tooltip: 'Show Snackbar',
               onPressed: _GetName,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(right: 10.0),
+            child: IconButton(
+                icon: const Icon(Icons.refresh),
+                onPressed: () => setState(() {}) // refresh Pages,
+                ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(right: 10.0),
+            child: IconButton(
+              icon: const Icon(Icons.logout),
+              onPressed: () => {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Login(),
+                  ),
+                )
+              },
             ),
           ),
         ],
@@ -49,7 +71,15 @@ class _SecondScreenState extends State<SecondScreen> {
                   //print(_index);
                   //print(globals.account.Users[_index].name);
                   return new FlatButton(
-                    onPressed: () => print(_index),
+                    onPressed: () => {
+                      globals.account.SelectedAccount = _index,
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => UserPage(),
+                        ),
+                      )
+                    },
                     child: CardWidget(
                       Age: globals.account.Users[_index].Age,
                       Name: globals.account.Users[_index].name,
@@ -289,7 +319,7 @@ class _SecondScreenState extends State<SecondScreen> {
                       //print(globals.account.Users[0].name);
                       ////print(globals.Users);//Debug
                       (context as Element).reassemble();
-                      setState(() {}); // refresh Pages
+
                       Navigator.of(context).pop(); // Close the dialog box
 
                     }

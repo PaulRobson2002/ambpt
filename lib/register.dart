@@ -11,6 +11,7 @@ class register extends StatefulWidget {
 class _registerState extends State<register> {
   bool _validate = false;
   String fname, email, username, password, sname;
+  double CurrWeight, TargetWeight, Age;
 
   GlobalKey<FormState> _key = new GlobalKey();
   @override
@@ -138,6 +139,57 @@ class _registerState extends State<register> {
             },
           ),
         ),
+        new Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 2.5),
+          child: new TextFormField(
+            obscureText: true,
+            decoration: new InputDecoration(
+              hintText: 'Age',
+              border: OutlineInputBorder(),
+              filled: true,
+              fillColor: Colors.white,
+            ),
+            validator: ValidateAge,
+            style: GoogleFonts.roboto(fontStyle: FontStyle.normal),
+            onSaved: (String val) {
+              Age = double.parse(val);
+            },
+          ),
+        ),
+        new Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 2.5),
+          child: new TextFormField(
+            obscureText: true,
+            decoration: new InputDecoration(
+              hintText: 'Current Weight',
+              border: OutlineInputBorder(),
+              filled: true,
+              fillColor: Colors.white,
+            ),
+            validator: ValidateDouble,
+            style: GoogleFonts.roboto(fontStyle: FontStyle.normal),
+            onSaved: (String val) {
+              CurrWeight = double.parse(val);
+            },
+          ),
+        ),
+        new Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 2.5),
+          child: new TextFormField(
+            obscureText: true,
+            decoration: new InputDecoration(
+              hintText: 'Target Waright',
+              border: OutlineInputBorder(),
+              filled: true,
+              fillColor: Colors.white,
+            ),
+            validator: ValidateDouble,
+            style: GoogleFonts.roboto(fontStyle: FontStyle.normal),
+            onSaved: (String val) {
+              TargetWeight = double.parse(val);
+            },
+          ),
+        ),
         new SizedBox(height: 15.0),
         Container(
           height: 50,
@@ -163,6 +215,28 @@ class _registerState extends State<register> {
         ),
       ],
     );
+  }
+
+  String ValidateAge(String value) {
+    String pattern = r'^[0-9]*$';
+    RegExp regExp = new RegExp(pattern);
+    if (value.length == 0) {
+      return "Value is Required";
+    } else if (!regExp.hasMatch(value)) {
+      return "Invalid Value";
+    }
+    return null;
+  }
+
+  String ValidateDouble(String value) {
+    String pattern = r'^[0-9][\.\d]*(,\d+)?$';
+    RegExp regExp = new RegExp(pattern);
+    if (value.length == 0) {
+      return "Value is Required";
+    } else if (!regExp.hasMatch(value)) {
+      return "Invalid Value";
+    }
+    return null;
   }
 
   String validatePassword(String value) {
@@ -218,7 +292,19 @@ class _registerState extends State<register> {
       globals.account.FName = fname;
       globals.account.SName = sname;
       globals.account.Pass = password;
-      //paulflutter.ezyro.com/register.php
+
+      globals.account.Users.add(
+        //adds instance of an account to users list
+
+        new globals.account(
+          // passes in values and makes class
+          PAge: Age,
+          PName: fname+" " + sname,
+          PCurrweight: CurrWeight,
+          PTargetWeight: TargetWeight,
+        ),
+      );
+    
       Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
     } else {
       // validation error
