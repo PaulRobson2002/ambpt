@@ -3,8 +3,6 @@ library ambpt.globals;
 import 'package:ambpt/main.dart';
 import 'package:flutter/cupertino.dart';
 
-
-
 class account {
   String name;
   double Age, TargetWeight, CurrWeight;
@@ -21,9 +19,13 @@ class account {
     this.CurrWeight = PCurrweight;
     this.TargetWeight = PTargetWeight;
   }
-
-
-
+  static bool confirmPass(Value) {
+    if (Value == Pass) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 
 class challenge {}

@@ -4,6 +4,7 @@ import 'package:ambpt/uselect.dart';
 import 'package:ambpt/register.dart';
 import 'forgotpass.dart';
 import 'globals.dart' as globals;
+
 //test
 void main() => runApp(new Login());
 
@@ -25,7 +26,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   GlobalKey<FormState> _key = new GlobalKey();
   bool _validate = false;
-  String name, email;
+  String pass, email;
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +108,7 @@ class _MyAppState extends State<MyApp> {
             validator: validateName,
             style: GoogleFonts.roboto(fontStyle: FontStyle.normal),
             onSaved: (String val) {
-              name = val;
+              pass =  val;
             },
           ),
         ),
@@ -162,7 +163,7 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         FlatButton(
-          onPressed: toSelect,
+          onPressed: toSelect(pass),
 
           /*() {
               _sendToServer
@@ -226,12 +227,18 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  toSelect() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => SecondScreen(),
-      ),
-    );
+  toSelect(Pass) {
+    bool rightPass = globals.account.confirmPass(Pass);
+    if (rightPass) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SecondScreen(),
+        ),
+      );
+    }
+    else{
+      //Error
+    }
   }
 }

@@ -48,11 +48,14 @@ class _SecondScreenState extends State<SecondScreen> {
                 itemBuilder: (BuildContext ctxt, int _index) {
                   //print(_index);
                   //print(globals.account.Users[_index].name);
-                  return CardWidget(
-                    Age: globals.account.Users[_index].Age,
-                    Name: globals.account.Users[_index].name,
-                    current: globals.account.Users[_index].CurrWeight,
-                    goal: globals.account.Users[_index].TargetWeight,
+                  return new FlatButton(
+                    onPressed: () => print(_index),
+                    child: CardWidget(
+                      Age: globals.account.Users[_index].Age,
+                      Name: globals.account.Users[_index].name,
+                      current: globals.account.Users[_index].CurrWeight,
+                      goal: globals.account.Users[_index].TargetWeight,
+                    ),
                   );
                 },
               ),
@@ -63,11 +66,12 @@ class _SecondScreenState extends State<SecondScreen> {
     );
   }
 
-  Widget CardWidget(
-      {@required String Name,
-      @required double Age,
-      @required double goal,
-      @required double current}) {
+  Widget CardWidget({
+    @required String Name,
+    @required double Age,
+    @required double goal,
+    @required double current,
+  }) {
     return new Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.1,
@@ -174,6 +178,28 @@ class _SecondScreenState extends State<SecondScreen> {
   }
 
   _GetName() async {
+    String ValidateAge(String value) {
+      String pattern = r'^[0-9]*$';
+      RegExp regExp = new RegExp(pattern);
+      if (value.length == 0) {
+        return "Value is Required";
+      } else if (!regExp.hasMatch(value)) {
+        return "Invalid Value";
+      }
+      return null;
+    }
+
+    String ValidateBool(String value) {
+      String pattern = r'^[0-9][\.\d]*(,\d+)?$';
+      RegExp regExp = new RegExp(pattern);
+      if (value.length == 0) {
+        return "Value is Required";
+      } else if (!regExp.hasMatch(value)) {
+        return "Invalid Value";
+      }
+      return null;
+    }
+
     String Name;
     double Age, CurrWeight, TargetWeight;
     return await showDialog(
@@ -211,9 +237,7 @@ class _SecondScreenState extends State<SecondScreen> {
                         onChanged: (value) {
                           Age = double.parse(value);
                         },
-                        validator: (value) {
-                          return value.isNotEmpty ? null : "Enter Your age";
-                        },
+                        validator: ValidateAge,
                         decoration:
                             InputDecoration(hintText: "Please Enter Your Age"),
                       ),
@@ -225,9 +249,7 @@ class _SecondScreenState extends State<SecondScreen> {
                         onChanged: (value) {
                           CurrWeight = double.parse(value);
                         },
-                        validator: (value) {
-                          return value.isNotEmpty ? null : "Enter Your weight";
-                        },
+                        validator: ValidateBool,
                         decoration: InputDecoration(
                             hintText: "Please Enter Your weight"),
                       ),
@@ -239,11 +261,7 @@ class _SecondScreenState extends State<SecondScreen> {
                         onChanged: (value) {
                           TargetWeight = double.parse(value);
                         },
-                        validator: (value) {
-                          return value.isNotEmpty
-                              ? null
-                              : "Enter Target weight";
-                        },
+                        validator: ValidateBool,
                         decoration: InputDecoration(
                             hintText: "Please Enter Your Target weight"),
                       ),
@@ -270,6 +288,7 @@ class _SecondScreenState extends State<SecondScreen> {
                       );
                       //print(globals.account.Users[0].name);
                       ////print(globals.Users);//Debug
+                      (context as Element).reassemble();
                       setState(() {}); // refresh Pages
                       Navigator.of(context).pop(); // Close the dialog box
 
@@ -282,5 +301,9 @@ class _SecondScreenState extends State<SecondScreen> {
         );
       },
     );
+  }
+
+  printTest(index) {
+    print(index);
   }
 }
