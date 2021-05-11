@@ -14,6 +14,18 @@ class _UserPageState extends State<UserPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(right: 10.0),
+            child: IconButton(
+              icon: const Icon(
+                Icons.article,
+                color: Colors.white,
+              ),
+              onPressed: null,
+            ),
+          ),
+        ],
         title: Text(
             globals.account.Users[globals.account.SelectedAccount].name +
                 "'s Profile"),
@@ -29,8 +41,8 @@ class _UserPageState extends State<UserPage> {
               child: Column(
                 children: <Widget>[
                   Image(
-                  image: AssetImage("asset/images/placeholder.png"),
-                  height: MediaQuery.of(context).size.height * 0.25,
+                    image: AssetImage("asset/images/placeholder.png"),
+                    height: MediaQuery.of(context).size.height * 0.25,
                   ),
                   Text(
                     "Welcome " +
@@ -48,11 +60,73 @@ class _UserPageState extends State<UserPage> {
               ),
             ),
             Padding(
-              child: Text(
-                "Welcome " +
-                    globals.account.Users[globals.account.SelectedAccount].name,
+              child: Container(
+                color: Colors.blue,
+                width: MediaQuery.of(context).size.width * 0.65,
+                height: MediaQuery.of(context).size.height * 0.1,
+                foregroundDecoration: BoxDecoration(
+                  //color: Colors.blue,
+                  borderRadius: new BorderRadius.all(
+                    new Radius.circular(7.5),
+                  ),
+                  border: Border.all(color: Colors.white),
+                ),
+                child: Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.25,
+                        left: 25,
+                      ),
+                      child: Text(
+                        "Your Progress",
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.roboto(
+                          textStyle: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: MediaQuery.of(context).size.width * 0.04,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              padding: EdgeInsets.only(top: 50),
+              padding: EdgeInsets.only(top: 60),
+            ),
+            Padding(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.65,
+                height: MediaQuery.of(context).size.height * 0.1,
+                color: Colors.blue,
+                foregroundDecoration: BoxDecoration(
+                  borderRadius: new BorderRadius.all(
+                    new Radius.circular(7.5),
+                  ),
+                  border: Border.all(
+                    color: Colors.white,
+                  ),
+                  //color: Colors.white,
+                ),
+                child: FlatButton(
+                  onPressed: () => print("Pressed"),
+                  textColor: Colors.white,
+                  //color: Colors.blue,
+                  child: Text(
+                    "Challenges",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.roboto(
+                      textStyle: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: MediaQuery.of(context).size.width * 0.04,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              padding: EdgeInsets.only(top: 100),
             ),
           ],
         ),
