@@ -59,48 +59,15 @@ class _UserPageState extends State<UserPage> {
                 ],
               ),
             ),
+            CardWidget(),
             Padding(
               child: Container(
-                color: Colors.blue,
-                width: MediaQuery.of(context).size.width * 0.65,
-                height: MediaQuery.of(context).size.height * 0.1,
-                foregroundDecoration: BoxDecoration(
-                  //color: Colors.blue,
-                  borderRadius: new BorderRadius.all(
-                    new Radius.circular(7.5),
-                  ),
-                  border: Border.all(color: Colors.white),
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.25,
-                        left: 25,
-                      ),
-                      child: Text(
-                        "Your Progress",
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.roboto(
-                          textStyle: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: MediaQuery.of(context).size.width * 0.04,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              padding: EdgeInsets.only(top: 60),
-            ),
-            Padding(
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.65,
-                height: MediaQuery.of(context).size.height * 0.1,
-                color: Colors.blue,
-                foregroundDecoration: BoxDecoration(
+                margin:
+                    const EdgeInsets.only(left: 25.0, right: 25.0, top: 25.0),
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height * 0.05,
+                color: Colors.white,
+                /*foregroundDecoration: BoxDecoration(
                   borderRadius: new BorderRadius.all(
                     new Radius.circular(7.5),
                   ),
@@ -108,17 +75,17 @@ class _UserPageState extends State<UserPage> {
                     color: Colors.white,
                   ),
                   //color: Colors.white,
-                ),
+                ),*/
                 child: FlatButton(
                   onPressed: () => print("Pressed"),
-                  textColor: Colors.white,
+                  textColor: Colors.black,
                   //color: Colors.blue,
                   child: Text(
                     "Challenges",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.roboto(
                       textStyle: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: MediaQuery.of(context).size.width * 0.04,
                       ),
@@ -126,9 +93,111 @@ class _UserPageState extends State<UserPage> {
                   ),
                 ),
               ),
-              padding: EdgeInsets.only(top: 100),
+              padding: EdgeInsets.symmetric(vertical: 5),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget CardWidget() {
+    return new Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height * 0.1,
+      child: Container(
+        margin: const EdgeInsets.only(left: 25.0, right: 25.0, top: 5.0),
+        //padding: const EdgeInsets.fromLTRB(20, 20.0, 20.0, 0),
+        child: Card(
+          color: Colors.white,
+          child: Row(
+            children: <Widget>[
+              Padding(
+                  padding: EdgeInsets.only(left: 20.0, top: 5.0),
+                  child: Container(
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(right: 40.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Progress",
+                                  textAlign: TextAlign.left,
+                                  style: GoogleFonts.roboto(
+                                    textStyle: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.04,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(top: 5),
+                                  child: Text(
+                                    "Current Weight:" +
+                                        globals
+                                            .account
+                                            .Users[
+                                                globals.account.SelectedAccount]
+                                            .CurrWeight
+                                            .toString(),
+                                    textAlign: TextAlign.left,
+                                    style: GoogleFonts.roboto(
+                                      textStyle: TextStyle(
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                0.04,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(right: 20.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Test",
+                                  textAlign: TextAlign.left,
+                                  style: GoogleFonts.roboto(
+                                    textStyle: TextStyle(
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.04,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(top: 5),
+                                  child: Text(
+                                    "Ts",
+                                    textAlign: TextAlign.left,
+                                    style: GoogleFonts.roboto(
+                                      textStyle: TextStyle(
+                                        fontSize:
+                                            MediaQuery.of(context).size.width *
+                                                0.04,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )),
+            ],
+          ),
         ),
       ),
     );
