@@ -59,6 +59,9 @@ class _UserPageState extends State<UserPage> {
                 ],
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.only(top: 25),
+            ),
             CardWidget(),
             Padding(
               child: Container(
@@ -106,7 +109,7 @@ class _UserPageState extends State<UserPage> {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.1,
       child: Container(
-        margin: const EdgeInsets.only(left: 25.0, right: 25.0, top: 5.0),
+        margin: const EdgeInsets.only(left: 25.0, right: 25.0, top: 15.0),
         //padding: const EdgeInsets.fromLTRB(20, 20.0, 20.0, 0),
         child: Card(
           color: Colors.white,
@@ -165,7 +168,7 @@ class _UserPageState extends State<UserPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Test",
+                                  "",
                                   textAlign: TextAlign.left,
                                   style: GoogleFonts.roboto(
                                     textStyle: TextStyle(
@@ -178,7 +181,13 @@ class _UserPageState extends State<UserPage> {
                                 Padding(
                                   padding: EdgeInsets.only(top: 5),
                                   child: Text(
-                                    "Ts",
+                                    "Target Weight: " +
+                                        globals
+                                            .account
+                                            .Users[
+                                                globals.account.SelectedAccount]
+                                            .TargetWeight
+                                            .toString(),
                                     textAlign: TextAlign.left,
                                     style: GoogleFonts.roboto(
                                       textStyle: TextStyle(
