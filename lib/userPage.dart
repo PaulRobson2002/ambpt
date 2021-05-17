@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:convert';
+import 'challenges.dart';
 import 'dart:core';
+import 'dart:math';
 import 'globals.dart' as globals;
+
+Random random = new Random();
 
 class UserPage extends StatefulWidget {
   @override
@@ -80,7 +84,21 @@ class _UserPageState extends State<UserPage> {
                   //color: Colors.white,
                 ),*/
                 child: FlatButton(
-                  onPressed: () => print("Pressed"),
+                  onPressed: () {
+                    int randomNumber = random.nextInt(10) + 1;
+                    if (globals.challenge.Work.length == 0) {
+                      new globals.challenge(randomNumber, false, 0);
+                      globals.challenge.generateChallenges();
+                    }
+                    //chalSelect
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => chalSelect(),
+                      ),
+                    );
+                    //print(globals.challenge.Work[0].task);
+                  },
                   textColor: Colors.black,
                   //color: Colors.blue,
                   child: Text(
@@ -104,7 +122,12 @@ class _UserPageState extends State<UserPage> {
     );
   }
 
-  Widget CardWidget() {
+  Widget CardWidget({
+    @required String Name,
+    @required double Age,
+    @required double goal,
+    @required double current,
+  }) {
     return new Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.1,

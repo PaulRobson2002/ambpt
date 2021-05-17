@@ -4,6 +4,9 @@ import 'dart:math';
 
 import 'package:ambpt/main.dart';
 import 'package:flutter/cupertino.dart';
+import 'dart:math';
+
+Random random = new Random();
 
 class account {
   String name;
@@ -24,28 +27,46 @@ class account {
 }
 
 class challenge {
-  int amount, completed, taskcompleted;
-  static List<exercise> Exercises = [];
+  static List Workouts = [
+    "Pushups",
+    "Squats",
+    "Burpee",
+  ];
+  static int amount, taskcompleted;
+  bool completed;
+  static List<exercise> Work = [];
   challenge(amount, completed, taskcompleted) {
-    this.amount = amount;
+    challenge.amount = amount;
     this.completed = completed;
-    this.taskcompleted = taskcompleted;
+    challenge.taskcompleted = taskcompleted;
   }
 
-  generateChallenges() {
-    for (var i = 0; i < amount; i++) {
-      Exercises.add(new exercise(2, 0, false, "Pushups"));
+  static generateChallenges() {
+    for (var i = 0; i < challenge.amount; i++) {
+      int randomNumber = random.nextInt(Workouts.length);
+      int randomAmount = random.nextInt(60) + 5;
+      //print(Workouts[randomNumber]);
+      challenge.Work.add(
+        new exercise(
+          randomAmount,
+          false,
+          Workouts[randomNumber],
+        ),
+      );
     }
+  }
+
+  static completeChallenge(index) {
+    Work[index].complete = !Work[index].complete;
   }
 }
 
 class exercise {
-  int amount, completedamt;
+  int amount;
   bool complete;
   String task;
-  exercise(amount, completedamt, complete, task) {
+  exercise(int amount, bool complete, String task) {
     this.amount = amount;
-    this.completedamt = completedamt;
     this.complete = complete;
     this.task = task;
   }
